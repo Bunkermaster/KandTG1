@@ -1,8 +1,13 @@
 <?php
-//var_dump(pathinfo($_SERVER['PHP_SELF'])['filename']);die();
+/**
+ * @param string $page nom de la page dont le lien est généré
+ * @return string class="active" si la page dont le lien est généré est la page courante
+ */
 function activeOuPas($page)
 {
+    // récupération du nom de fichier à partir du chemin
     if(pathinfo($_SERVER['PHP_SELF'])['filename'] == $page){
+        // si la page à lier est la même que la page courante, active!
         return ' class="active"';
     }
 }
