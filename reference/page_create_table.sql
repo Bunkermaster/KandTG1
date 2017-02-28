@@ -9,11 +9,11 @@ CREATE TABLE `page` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `page` (`id`, `h1`, `description`, `img`, `alt`, `slug`, `nav-title`) VALUES
-(1, 'Les Teletubbies', 'C''est flippant.', 'img/teletubbies.jpg', '', '', ''),
-(2, 'Les Chatons !', 'C''est mignon.\r\n\r\n', 'img/three_kittens.jpg', '', '', ''),
-(3, 'Iron Maiden!', 'C''est vieux.', 'img/ironmaiden.jpg', '', '', ''),
-(4, '16 horsepower', 'Woooaaaah', 'img/raf.jpg', '', '', ''),
-(5, 'Les mangas!!!', 'Woooooah la culture Japonaise\r\n\r\n', 'img/manga.jpg', '', '', '');
+  (1, 'Les Teletubbies', 'C\'est flippant.', 'img/teletubbies.jpg', 'Teletubbies', 'les-teletubbies', 'Teletubbies'),
+  (2, 'Les Chatons !', 'C\'est mignon.\r\n\r\n', 'img/three_kittens.jpg', 'Kittens', 'les-chatons-wesh-gros', 'Chatons'),
+  (3, 'Iron Maiden!', 'C\'est vieux.', 'img/ironmaiden.jpg', 'Eddy', 'iron-maiden-ca-pique', 'Ironmaiden'),
+  (4, '16 horsepower', 'Woooaaaah', 'img/raf.jpg', 'Sombre hero de la mer', 'pif-paf', '16HP'),
+  (5, 'Les mangas!!!', 'Woooooah la culture Japonaise\r\n\r\n', 'img/manga.jpg', 'Woooooahhh', 'onegai-sshimasu-goshijin-sama', 'Mangaaaa');
 
 ALTER TABLE `page`
   ADD PRIMARY KEY (`id`);
