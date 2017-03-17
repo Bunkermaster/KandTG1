@@ -1,0 +1,8 @@
+GET / ou /index.php Teletubbies
+GET /kittens.php Kittens
+GET /manga.php Manga
+GET /ironmaiden.php Iron Maiden
+
+
+GET /index.php ou /index.php?slug=[slug] Toutes les pages avec teletubbies par defaut
+GET /index.php renvoie 404 si slug fourni n'existe pas dans la base
