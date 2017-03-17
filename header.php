@@ -3,14 +3,18 @@
  * @param string $page nom de la page dont le lien est généré
  * @return string class="active" si la page dont le lien est généré est la page courante
  */
-function activeOuPas($page)
+function activeOuPas($leslug)
 {
     // récupération du nom de fichier à partir du chemin
-    if(pathinfo($_SERVER['PHP_SELF'])['filename'] == $page){
+    if($_GET['slug'] == $leslug){
         // si la page à lier est la même que la page courante, active!
         return ' class="active"';
     }
 }
+
+$sql = "SELECT `nav-title`, `slug`  FROM `page`";
+$stmtNav = $pdo->prepare($sql);
+$stmtNav->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,11 +32,9 @@ function activeOuPas($page)
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li<?=activeOuPas('index')?>><a href="index.php?slug=les-teletubbies">Teletubbies</a></li>
-                <li<?=activeOuPas('kittens')?>><a href="index.php?slug=les-chatons-wesh-gros">Kittens</a></li>
-                <li<?=activeOuPas('ironmaiden')?>><a href="index.php?slug=iron-maiden-ca-pique">Iron Maiden</a></li>
-                <li<?=activeOuPas('16horsepower')?>><a href="index.php?slug=pif-paf">16 Horse power</a></li>
-                <li<?=activeOuPas('manga')?>><a href="index.php?slug=onegai-sshimasu-goshijin-sama">Manga</a></li>
+                <?php while($rowNav = $stmtNav->fetch(PDO::FETCH_ASSOC)): ?>
+                <li<?=activeOuPas($rowNav['slug'] )?>><a href="index.php?slug=<?= $rowNav['slug'] ?>"><?= $rowNav['nav-title'] ?></a></li>
+                <?php endwhile; ?>
             </ul>
         </div>
     </div>
