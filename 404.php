@@ -1,7 +1,9 @@
 <?php
 require "header.php";
 ?>
-    <h1>AAAAAAAAAAAAHHHHH ON TROUVE RIEN 404 MAGGLE</h1>
+    <div class="jumbotron">
+            <h1>404</h1>
+        </div>
 <?php
 require "footer.php";
 ?>

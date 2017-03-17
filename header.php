@@ -35,7 +35,6 @@ $stmtNav->execute();
                 <?php while($rowNav = $stmtNav->fetch(PDO::FETCH_ASSOC)): ?>
                 <li<?=activeOuPas($rowNav['slug'] )?>><a href="index.php?slug=<?= $rowNav['slug'] ?>"><?= $rowNav['nav-title'] ?></a></li>
                 <?php endwhile; ?>
-
             </ul>
         </div>
     </div>
