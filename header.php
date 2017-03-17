@@ -28,11 +28,11 @@ function activeOuPas($page)
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li<?=activeOuPas('index')?>><a href="index.php">Teletubbies</a></li>
-                <li<?=activeOuPas('kittens')?>><a href="kittens.php">Kittens</a></li>
-                <li<?=activeOuPas('ironmaiden')?>><a href="ironmaiden.php">Iron Maiden</a></li>
-                <li<?=activeOuPas('16horsepower')?>><a href="16horsepower.php">16 Horse power</a></li>
-                <li<?=activeOuPas('manga')?>><a href="manga.php">Manga</a></li>
+                <li<?=activeOuPas('index')?>><a href="index.php?slug=les-teletubbies">Teletubbies</a></li>
+                <li<?=activeOuPas('kittens')?>><a href="index.php?slug=les-chatons-wesh-gros">Kittens</a></li>
+                <li<?=activeOuPas('ironmaiden')?>><a href="index.php?slug=iron-maiden-ca-pique">Iron Maiden</a></li>
+                <li<?=activeOuPas('16horsepower')?>><a href="index.php?slug=pif-paf">16 Horse power</a></li>
+                <li<?=activeOuPas('manga')?>><a href="index.php?slug=onegai-sshimasu-goshijin-sama">Manga</a></li>
             </ul>
         </div>
     </div>
