@@ -17,6 +17,9 @@ function activeOuPas($leslug, $slug)
 $sql = "SELECT `nav-title`, `slug`  FROM `page`";
 $stmtNav = $pdo->prepare($sql);
 $stmtNav->execute();
+if($stmtNav->errorCode() !== '00000'){
+    die($stmtNav->errorInfo()[2]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +38,9 @@ $stmtNav->execute();
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <?php while($rowNav = $stmtNav->fetch(PDO::FETCH_ASSOC)): ?>
-                <li<?=activeOuPas($rowNav['slug'], $slug)?>><a href="index.php?slug=<?= $rowNav['slug'] ?>"><?= $rowNav['nav-title'] ?></a></li>
+                <li<?=activeOuPas($rowNav['slug'], $slug)?>>
+                    <a href="index.php?slug=<?= $rowNav['slug'] ?>"><?= $rowNav['nav-title'] ?></a>
+                </li>
                 <?php endwhile; ?>
             </ul>
         </div>
