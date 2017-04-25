@@ -7,7 +7,18 @@
  */
 // je me connecte, weeeee
 require_once dirname(__DIR__)."/connaicte.php";
-if(count($_POST) === 0) {
+function slugDejaPris(PDO $pdo, $slug)
+{
+    $sql = "SELECT count(*) as le_count FROM `page` WHERE slug = :slug";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':slug', htmlentities($slug));
+    $stmt->execute();
+    if ($stmt->errorCode() !== "00000") {
+        die($stmt->errorInfo()[2]);
+    }
+    return (bool) $stmt->fetch()[0];
+}
+if(count($_POST) === 0 || $_POST['slug'] == '' || slugDejaPris($pdo, $_POST['slug'] ?? '')) {
     ?>
     <!doctype html>
     <html lang="en">
@@ -22,27 +33,27 @@ if(count($_POST) === 0) {
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
         <p>
             <label for="slug">Slug</label></br>
-            <input type="text" name="slug" placeholder="slug en kebabcase">
+            <input type="text" name="slug" placeholder="slug en kebabcase" value="<?=$_POST['slug'] ?? ''?>">
         </p>
         <p>
             <label for="h1">h1</label></br>
-            <input type="text" name="h1" placeholder="h1">
+            <input type="text" name="h1" placeholder="h1"value="<?=$_POST['h1'] ?? ''?>">
         </p>
         <p>
             <label for="description">description</label></br>
-            <textarea name="description" id="description" cols="30" rows="10" placeholder="Description"></textarea>
+            <textarea name="description" id="description" cols="30" rows="10" placeholder="Description"><?=$_POST['description'] ?? ''?></textarea>
         </p>
         <p>
             <label for="img">img</label></br>
-            <input type="text" name="img" placeholder="img">
+            <input type="text" name="img" placeholder="img"value="<?=$_POST['img'] ?? ''?>">
         </p>
         <p>
             <label for="alt">alt</label></br>
-            <input type="text" name="alt" placeholder="alt">
+            <input type="text" name="alt" placeholder="alt"value="<?=$_POST['alt'] ?? ''?>">
         </p>
         <p>
             <label for="nav-title">nav-title</label></br>
-            <input type="text" name="nav-title" placeholder="nav-title">
+            <input type="text" name="nav-title" placeholder="nav-title"value="<?=$_POST['nav-title'] ?? ''?>">
         </p>
         <p>
         <p>
@@ -53,5 +64,22 @@ if(count($_POST) === 0) {
     </html>
 <?php
 } else {
-    var_dump($_POST);
+    $sql = "INSERT INTO
+              `page`
+              (`h1`, `description`, `img`, `alt`, `slug`, `nav-title`)
+            VALUES
+              (:h1, :description, :img, :alt, :slug, :navtitle)
+            ;";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':h1', htmlentities($_POST['h1']));
+    $stmt->bindValue(':description', htmlentities($_POST['description']));
+    $stmt->bindValue(':img', htmlentities($_POST['img']));
+    $stmt->bindValue(':slug', htmlentities($_POST['slug']));
+    $stmt->bindValue(':alt', htmlentities($_POST['alt']));
+    $stmt->bindValue(':navtitle', htmlentities($_POST['nav-title']));
+    $stmt->execute();
+    if ($stmt->errorCode() !== "00000") {
+        die($stmt->errorInfo()[2]);
+    }
+    header("Location: ../?slug=".htmlentities($_POST['slug']));
 }
