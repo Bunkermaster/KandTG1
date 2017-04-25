@@ -1,0 +1,4 @@
+AuthName "Bozo lol"
+AuthType Basic
+AuthUserFile "/Users/yann/Sites/webp2019/KandTG1/admin/.htpasswd"
+Require valid-user

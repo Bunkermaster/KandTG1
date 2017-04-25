@@ -45,7 +45,7 @@ if ($stmt->errorCode() !== '00000') {
     <tr>
         <td><?=$row['id']?></td>
         <td><?=$row['slug']?></td>
-        <td>Voir</td>
+        <td><a href="../?slug=<?=$row['slug']?>" target="_blank">Voir</a></td>
     </tr>
     <?php endwhile;?>
 <?php else: ?>
