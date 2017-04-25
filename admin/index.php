@@ -31,6 +31,7 @@ if ($stmt->errorCode() !== '00000') {
     <title>Liste des pages</title>
 </head>
 <body>
+<a href="ajouter.php">+ Page</a><br/>
 <table>
     <thead>
     <tr>
