@@ -7,7 +7,8 @@
  */
 // je me connecte, weeeee
 require_once dirname(__DIR__)."/connaicte.php";
-if(count($_POST) === 0) {
+$data = $_POST;
+if(count($data) === 0 || (isset($data['slug']) && $data['slug'] == '')) {
     $labelSubmit = "Modifier";
     if (!isset($_GET['id'])) {
         header("Location: index.php");
@@ -55,19 +56,29 @@ if(count($_POST) === 0) {
     </html>
     <?php
 } else {
-    var_dump($_POST);
-    die();
-    $sql = "";
+    $sql = "UPDATE
+              `page`
+            SET
+              `h1`= :h1,
+              `description`= :description,
+              `img`= :img,
+              `slug`= :slug,
+              `nav-title`= :navtitle,
+              `alt`= :alt
+            WHERE
+              `id` = :id
+            ;";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':h1', htmlentities($_POST['h1']));
-    $stmt->bindValue(':description', htmlentities($_POST['description']));
-    $stmt->bindValue(':img', htmlentities($_POST['img']));
-    $stmt->bindValue(':slug', htmlentities($_POST['slug']));
-    $stmt->bindValue(':alt', htmlentities($_POST['alt']));
-    $stmt->bindValue(':navtitle', htmlentities($_POST['nav-title']));
+    $stmt->bindValue(':id', htmlentities($data['id']), PDO::PARAM_INT);
+    $stmt->bindValue(':h1', htmlentities($data['h1']), PDO::PARAM_STR);
+    $stmt->bindValue(':description', htmlentities($data['description']), PDO::PARAM_STR);
+    $stmt->bindValue(':img', htmlentities($data['img']), PDO::PARAM_STR);
+    $stmt->bindValue(':slug', htmlentities($data['slug']), PDO::PARAM_STR);
+    $stmt->bindValue(':alt', htmlentities($data['alt']), PDO::PARAM_STR);
+    $stmt->bindValue(':navtitle', htmlentities($data['nav-title']), PDO::PARAM_STR);
     $stmt->execute();
     if ($stmt->errorCode() !== "00000") {
         die($stmt->errorInfo()[2]);
     }
-    header("Location: ../?slug=".htmlentities($_POST['slug']));
+    header("Location: index.php");
 }
