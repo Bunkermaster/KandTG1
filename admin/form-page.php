@@ -1,3 +1,9 @@
+<?php
+$label = "Ajouter";
+if(isset($labelSubmit)){
+    $label = $labelSubmit;
+}
+?>
 <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
     <input type="hidden" name="id" value="<?=$data['id'] ?? 0?>">
     <p>
@@ -26,6 +32,6 @@
     </p>
     <p>
     <p>
-        <input type="submit" value="Ajouter">
+        <input type="submit" value="<?=$label?>">
     </p>
 </form>

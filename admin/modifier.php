@@ -2,13 +2,41 @@
 /**
  * Created by PhpStorm.
  * User: Yann Le Scouarnec <bunkermaster@gmail.com>
- * Date: 25/04/2017
- * Time: 17:01
+ * Date: 26/04/2017
+ * Time: 10:20
  */
 // je me connecte, weeeee
 require_once dirname(__DIR__)."/connaicte.php";
-if(count($_POST) === 0 || $_POST['slug'] == '' || slugDejaPris($pdo, $_POST['slug'] ?? '')) {
-    $data = $_POST;
+if(count($_POST) === 0) {
+    $labelSubmit = "Modifier";
+    if (!isset($_GET['id'])) {
+        header("Location: index.php");
+        exit;
+    }
+    $sql = "SELECT
+              `id`,
+              `h1`,
+              `description`,
+              `img`,
+              `alt`,
+              `slug`,
+              `nav-title`
+            FROM
+              `page`
+            WHERE
+              `id` = :id
+            ;";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+    $stmt->execute();
+    if ($stmt->errorCode() !== "00000") {
+        die($stmt->errorInfo()[2]);
+    }
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (false === $data) {
+        header("Location: index.php");
+        exit;
+    }
     ?>
     <!doctype html>
     <html lang="en">
@@ -20,19 +48,16 @@ if(count($_POST) === 0 || $_POST['slug'] == '' || slugDejaPris($pdo, $_POST['slu
         <title>Ajouter Page</title>
     </head>
     <body>
-<?php
-        require "form-page.php";
-?>
+    <?php
+    require "form-page.php";
+    ?>
     </body>
     </html>
-<?php
+    <?php
 } else {
-    $sql = "INSERT INTO
-              `page`
-              (`h1`, `description`, `img`, `alt`, `slug`, `nav-title`)
-            VALUES
-              (:h1, :description, :img, :alt, :slug, :navtitle)
-            ;";
+    var_dump($_POST);
+    die();
+    $sql = "";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':h1', htmlentities($_POST['h1']));
     $stmt->bindValue(':description', htmlentities($_POST['description']));
