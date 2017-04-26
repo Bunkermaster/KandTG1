@@ -19,6 +19,7 @@ function slugDejaPris(PDO $pdo, $slug)
     return (bool) $stmt->fetch()[0];
 }
 if(count($_POST) === 0 || $_POST['slug'] == '' || slugDejaPris($pdo, $_POST['slug'] ?? '')) {
+    $data = $_POST;
     ?>
     <!doctype html>
     <html lang="en">
@@ -30,36 +31,9 @@ if(count($_POST) === 0 || $_POST['slug'] == '' || slugDejaPris($pdo, $_POST['slu
         <title>Ajouter Page</title>
     </head>
     <body>
-    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-        <p>
-            <label for="slug">Slug</label></br>
-            <input type="text" name="slug" placeholder="slug en kebabcase" value="<?=$_POST['slug'] ?? ''?>">
-        </p>
-        <p>
-            <label for="h1">h1</label></br>
-            <input type="text" name="h1" placeholder="h1"value="<?=$_POST['h1'] ?? ''?>">
-        </p>
-        <p>
-            <label for="description">description</label></br>
-            <textarea name="description" id="description" cols="30" rows="10" placeholder="Description"><?=$_POST['description'] ?? ''?></textarea>
-        </p>
-        <p>
-            <label for="img">img</label></br>
-            <input type="text" name="img" placeholder="img"value="<?=$_POST['img'] ?? ''?>">
-        </p>
-        <p>
-            <label for="alt">alt</label></br>
-            <input type="text" name="alt" placeholder="alt"value="<?=$_POST['alt'] ?? ''?>">
-        </p>
-        <p>
-            <label for="nav-title">nav-title</label></br>
-            <input type="text" name="nav-title" placeholder="nav-title"value="<?=$_POST['nav-title'] ?? ''?>">
-        </p>
-        <p>
-        <p>
-            <input type="submit" value="Ajouter">
-        </p>
-    </form>
+<?php
+        require "form-page.php";
+?>
     </body>
     </html>
 <?php
